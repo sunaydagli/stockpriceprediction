@@ -16,9 +16,9 @@ from tensorflow.keras.layers import Dense, LSTM
 from numpy import array
 
 # get the data from Tiingo
-data = pdr.get_data_tiingo('AAPL', api_key='56f9823528c78f57d1a3c772b702d7d67086d844')
-data.to_csv('APPL.csv')
-data = pd.read_csv('APPL.csv')
+data = pdr.get_data_tiingo('MSFT', api_key='56f9823528c78f57d1a3c772b702d7d67086d844')
+data.to_csv('MSFT.csv')
+data = pd.read_csv('MSFT.csv')
 data_close = data.reset_index()['close']
 # plt.plot(data_close)
 # plt.show()
@@ -43,7 +43,7 @@ def create_dataset(dataset, time_step=1):
     return np.array(dataX), np.array(dataY)
 
 # reshape into X = t, t + 1, ... Y = t + stamp
-time_step = 150
+time_step = 100
 X_train, y_train = create_dataset(train_data, time_step)
 X_test, y_test = create_dataset(test_data, time_step)
 
@@ -96,6 +96,7 @@ plt.plot(testPredictPlot)
 plt.show()
 
 # total 441 entries, taking top 100
+print(len(test_data))
 x_input = test_data[341:].reshape(1,-1)
 temp_input = list(x_input)
 temp_input = temp_input[0].tolist()
